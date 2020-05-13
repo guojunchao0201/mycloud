@@ -8,7 +8,11 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author 24513
@@ -20,6 +24,9 @@ public class PaymentController {
 
     @Autowired
     private PaymentService paymentService;
+
+    @Autowired
+    private DiscoveryClient discoveryClient;
 
     @Value("${server.port}")
     private String port;
@@ -45,5 +52,20 @@ public class PaymentController {
         } else {
             return new CommonResult<Payment>(500, "default", null);
         }
+    }
+
+    @GetMapping("/test/discovery")
+    @ApiOperation("测试discovery功能")
+    public Object getDiscovery() {
+        List<String> services = discoveryClient.getServices();
+        for (String service : services) {
+            log.info("service: " + service);
+        }
+        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
+        for (ServiceInstance instance : instances) {
+            log.info("host: {},port: {},url: {},serviceId: {},instanceId: {}", instance.getHost(),
+                    instance.getPort(), instance.getUri(), instance.getServiceId(), instance.getInstanceId());
+        }
+        return instances;
     }
 }
