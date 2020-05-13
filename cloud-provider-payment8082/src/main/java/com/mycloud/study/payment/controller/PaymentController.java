@@ -19,11 +19,10 @@ import org.springframework.web.bind.annotation.*;
 public class PaymentController {
 
     @Autowired
-    PaymentService paymentService;
+    private PaymentService paymentService;
 
     @Value("${server.port}")
     private String port;
-
     @PostMapping("/payment/create")
     @ApiOperation("添加订单接口")
     public CommonResult create(@RequestBody Payment payment) {
