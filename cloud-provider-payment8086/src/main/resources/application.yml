@@ -1,0 +1,13 @@
+server:
+  port: 8086
+spring:
+  application:
+    name: cloud-provider-payment
+
+  cloud:
+    consul:
+      host: 104.199.151.208
+      port: 8500
+      discovery:
+#        hostname: 127.0.0.1
+        service-name: ${spring.application.name}
