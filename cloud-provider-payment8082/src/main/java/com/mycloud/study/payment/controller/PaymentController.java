@@ -68,4 +68,16 @@ public class PaymentController {
         }
         return instances;
     }
+
+    @GetMapping("/payment/test/timeOut")
+    public String testTimeOut() {
+        try {
+            Thread.sleep(3000);
+            return "测试超时";
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "==";
+
+    }
 }

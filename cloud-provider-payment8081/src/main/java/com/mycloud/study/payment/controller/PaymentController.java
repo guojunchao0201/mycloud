@@ -47,4 +47,16 @@ public class PaymentController {
             return new CommonResult<Payment>(500, "default", null);
         }
     }
+
+    @GetMapping("/payment/test/timeOut")
+    public String testTimeOut() {
+        try {
+            Thread.sleep(3000);
+            return "测试超时";
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "==";
+
+    }
 }

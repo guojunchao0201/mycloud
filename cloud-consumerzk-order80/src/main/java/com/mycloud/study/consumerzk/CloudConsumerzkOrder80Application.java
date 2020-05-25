@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * 注册进zookeeper
+ * @author guojunchao
  */
 @SpringBootApplication
 public class CloudConsumerzkOrder80Application {

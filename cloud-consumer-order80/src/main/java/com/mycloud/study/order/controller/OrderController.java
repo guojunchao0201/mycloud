@@ -43,4 +43,16 @@ public class OrderController {
             return new CommonResult<>(500, "default");
         }
     }
+
+    @GetMapping("/payment/test/timeOut")
+    public String testTimeOut() {
+        try {
+            Thread.sleep(3000);
+            return "测试超时";
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "==";
+
+    }
 }
